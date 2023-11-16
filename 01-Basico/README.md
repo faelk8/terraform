@@ -3,7 +3,7 @@
   <br>
   Terraform
 
-  Aplicações e Estudo de Caso
+Conceitos Básicos
 </h1>
 
 
@@ -43,8 +43,7 @@ terraform apply
 Arquivo onde armazena as mudanças. ` terraform.tfstate `
 
 # Variáveis
-Arquivo que contém as variáveis, quando o terraform for iniciado ele vai ler o arquivo.
-
+Arquivo que contém as variáveis, quando o terraform for iniciado ele vai ler o arquivo.<br>
 `terraform.tfvars`
 ```
 conteudo = "Testando variáveis de ambiente"
@@ -59,5 +58,40 @@ resource "local_file" "exemplo" {
 
 variable "conteudo" {
   
+}
+```
+Aplicando a alteração:
+```
+terraform apply
+```
+
+# Output
+Pegando o id do arquivo e imprimindo no console.<br>
+`local.tf`
+```
+output "id-do-arquivo" {
+  value = resource.local_file.exemplo.id
+}
+```
+Pegando o conteúdo da variável.<br>
+```
+output "conteudo" {
+  value = var.conteudo
+}
+```
+Aplicando a alteração:
+```
+terraform apply
+```
+# Lendo Arquivo
+Leitura de um arquivo que já existe.<br>
+`local.tf`
+```
+data "local_file" "contudo-exemplo"{
+    filename = "exemplo.txt"
+}
+
+output "data-source-resul" {
+  value = data.local_file.contudo-exemplo.content
 }
 ```
