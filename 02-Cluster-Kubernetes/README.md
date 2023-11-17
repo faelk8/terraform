@@ -14,7 +14,6 @@
 
 </div>
 
-
 # Configurando 
 Arquivo inicial de configuração das versões, seguido da região.
 
@@ -47,3 +46,37 @@ resource "aws_vpc" "minha-vpc" {
   }
 }
 ```
+Criando a VPC
+```
+terraform apply
+```
+
+# Configurando Subnet
+
+`vpc.tf`
+```
+resource "was_subnet" "subnet-1" {
+  aws_availability_zone = "us-east-1a"
+  vpc_id = aws_vpc.minha-vpc.id
+  cidr_block = "10.0.0.0/24"
+  tag = {
+    Name = "minha-vpc-subnet-1"
+  }
+}
+
+resource "was_subnet" "subnet-2" {
+  aws_availability_zone = "us-east-1a"
+  vpc_id = aws_vpc.minha-vpc.id
+  cidr_block = "10.0.0.0/24"
+  tag = {
+    Name = "minha-vpc-subnet-2"
+  }
+}
+```
+
+# Comandos
+| **Comandos** | **Descrição** |
+|----------|---------------|
+| terraform apply | Aplica as alterações |
+| terraform apply --auto-approve | Para não precisar digital *yes* toda hora |
+| terraform init | Inicia o terraform |
