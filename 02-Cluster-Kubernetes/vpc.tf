@@ -19,7 +19,31 @@ resource "aws_subnet" "subnets" {
   }  
 }
 
-  
+resource "aws_internet_gateway" "minha-igw" {
+  vpc_id = aws_vpc.minha-vpc
+  tags = {
+    Name = "${var.prefix}-igw"
+  }
+}
+
+resource "aws_route_table" "new-rtb" {
+  vpc_id = aws_vpc.minha-vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.minha-igw.id
+  }
+  tags = {
+    Name = "${var.prefix}-rtb"
+  }
+}
+
+resource "aws_route_table_association" "new-rtb-association" {
+  count = 2
+  route_table_id = aws_route_table.new-rtb.id
+  subnet_id = aws_subnet.subnets.*.id[count.index]  
+}
+
+
 # resource "was_subnet" "subnet-1" {
 #   aws_availability_zone = "us-east-1a"
 #   vpc_id = aws_vpc.minha-vpc.id
