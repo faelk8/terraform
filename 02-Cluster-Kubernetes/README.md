@@ -74,9 +74,49 @@ resource "was_subnet" "subnet-2" {
 }
 ```
 
+# Refatorando
+Deixando o código mais eficiente.<br>
+Adicionando variáveis.<br>
+`variebles.tf`
+```
+variable "prefix"{
+    
+}
+```
+Informando os valores das variáveis.
+`terraform.tfvars`
+```
+prefix = "jota"
+```
+Refatorando a `vpc.tf`
+```
+resource "aws_vpc" "minha-vpc" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "${var.prefix}-vpc"
+  }
+}
+
+# Mostra as zonas de disponibilidade
+data "aws_availability_zones" "available" {}
+
+resource "aws_subnet" "subnets" {
+  count = 2
+  availability_zone = data.aws_availability_zones.available.names[count.index]
+  vpc_id =  aws_vpc.minha-vpc.id
+  cidr_block = "10.0.${count.index}.0/24"
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "${var.prefix}-subnet-${count.index}"
+  }  
+}
+```
+No comando `data "aws_availability_zones" "available" {}`, pega a zona de disponibilidades e faz uma espécie de um loop for com o `count=2` e coloca o índice aqui `${"count.index"}`. Será criado um total de 2 subnets, se precisar de mais altera o valor. O restando do código pode ser removido.
+
+
 # Comandos
 | **Comandos** | **Descrição** |
 |----------|---------------|
 | terraform apply | Aplica as alterações |
-| terraform apply --auto-approve | Para não precisar digital *yes* toda hora |
+| terraform apply --auto-approve | Aplica as alterações sem precisar digitar *yes* |
 | terraform init | Inicia o terraform |
