@@ -4,3 +4,5 @@
 terraform.tfstate.backup
 /.terraform
 .terraform.lock.hcl
+.terraform/providers/registry.terraform.io/hashicorp/local/2.4.0/linux_amd64
+.terraform/providers/registry.terraform.io/hashicorp/local/2.4.0/linux_amd64
