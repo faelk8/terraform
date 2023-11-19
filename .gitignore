@@ -1,3 +1,4 @@
 /ignore
 .terraform.lock.hcl
 /home/rafael/Documentos/github/terraform/02-Cluster-Kubernetes/.terraform.lock.hcl
+/terraform.tfstate

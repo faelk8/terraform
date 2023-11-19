@@ -1,3 +1,0 @@
-/ignore
-/.terraform.lock.hcl
-/.terraform/providers/registry.terraform.io/hashicorp/local/2.4.0/linux_amd64

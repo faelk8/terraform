@@ -1,11 +1,10 @@
 <h1 align="center">
-  <img src="image/terraform.png" alt="Kubernetes" width=150px height=120px >
+  <img src="./../image/terraform.png" alt="Kubernetes" width=150px height=120px >
   <br>
   Terraform
 
 Conceitos Básicos
 </h1>
-
 
 <div align="center">
 
